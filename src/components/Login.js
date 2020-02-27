@@ -17,6 +17,8 @@ const Login = ({ setUser }) => {
         lastName: user.lastName
       })
 
+      window.localStorage.setItem('loggedUser', JSON.stringify(user))
+
       apiService.setToken(user.token)
     } catch (err) {
       console.log(err)
