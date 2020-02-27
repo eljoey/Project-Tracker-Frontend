@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseUrl = 'https://lit-bayou-93209.herokuapp.com/'
+const baseUrl = 'https://lit-bayou-93209.herokuapp.com'
 
 const login = async credentials => {
   const res = await axios.post(`${baseUrl}/login`, credentials)
