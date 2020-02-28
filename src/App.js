@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Login from './components/Login'
 import apiService from './services/api'
 import './App.css'
+import Header from './components/Header'
 
 function App() {
   const [user, setUser] = useState(null)
@@ -32,10 +33,16 @@ function App() {
   }
 
   if (!user) {
-    return <Login setUser={setUser} />
+    return (
+      <>
+        <Header user={user} />
+        <Login setUser={setUser} />
+      </>
+    )
   } else {
     return (
       <>
+        <Header user={user} />
         <a href="http://localhost:3000" onClick={handleLogout}>
           Logout
         </a>
