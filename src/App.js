@@ -28,10 +28,6 @@ function App() {
     }
   }, [])
 
-  const handleLogout = () => {
-    window.localStorage.removeItem('loggedUser')
-  }
-
   if (!user) {
     return (
       <>
@@ -43,9 +39,7 @@ function App() {
     return (
       <>
         <Header user={user} />
-        <a href="http://localhost:3000" onClick={handleLogout}>
-          Logout
-        </a>
+
         <div>
           {projects.map(proj => (
             <div>{proj.name}</div>
