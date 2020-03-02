@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Login from './components/Login'
 import apiService from './services/api'
-import './App.css'
+import 'bootstrap/dist/css/bootstrap.min.css'
 import Header from './components/Header'
 
 function App() {
