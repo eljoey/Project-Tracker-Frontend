@@ -1,7 +1,15 @@
 import React from 'react'
 import userService from '../services/user'
 import apiService from '../services/api'
-import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn } from 'mdbreact'
+import {
+  MDBContainer,
+  MDBRow,
+  MDBCol,
+  MDBInput,
+  MDBBtn,
+  MDBCard,
+  MDBCardBody
+} from 'mdbreact'
 
 const Login = ({ setUser }) => {
   const handleLogin = async e => {
@@ -26,36 +34,51 @@ const Login = ({ setUser }) => {
   }
 
   return (
-    <MDBContainer>
+    <MDBContainer className=" d-flex flex-column justify-content-center align-content-center">
       <MDBRow>
-        <MDBCol md="6">
-          <form onSubmit={handleLogin}>
-            <p className="h5 text-center mb-4">Sign in</p>
-            <div className="grey-text">
-              <MDBInput
-                id="username"
-                label="Username"
-                icon="envelope"
-                group
-                type="text"
-                validate
-                error="wrong"
-                success="right"
-              />
-              <MDBInput
-                id="password"
-                label="Password"
-                icon="lock"
-                group
-                type="password"
-                validate
-              />
+        <MDBCol md="8">
+          <MDBCard>
+            <div className="header pt-3 grey lighten-2">
+              <MDBRow className="d-flex justify-content-start">
+                <h3 className="deep-grey-text mt-3 mb-4 pb-1 mx-5">Log in</h3>
+              </MDBRow>
             </div>
-            <div className="text-center">
-              <MDBBtn type="submit">Login</MDBBtn>
-              <p>Create new account link goes here</p>
-            </div>
-          </form>
+            <MDBCardBody className="mx-4 mt-4">
+              <form onSubmit={handleLogin}>
+                <MDBInput
+                  id="username"
+                  label="Username"
+                  group
+                  type="text"
+                  validate
+                />
+                <MDBInput
+                  id="password"
+                  label="Password"
+                  group
+                  type="password"
+                  validate
+                  containerClass="mb-0"
+                />
+
+                <div className="text-center mb-4 mt-5">
+                  <MDBBtn
+                    color="danger"
+                    type="submit"
+                    className="btn-block z-depth-2"
+                  >
+                    Log in
+                  </MDBBtn>
+                </div>
+              </form>
+              <p className="font-small grey-text d-flex justify-content-center">
+                Don't have an account?
+                <a href="#!" className="dark-grey-text font-weight-bold ml-1">
+                  Sign up
+                </a>
+              </p>
+            </MDBCardBody>
+          </MDBCard>
         </MDBCol>
       </MDBRow>
     </MDBContainer>

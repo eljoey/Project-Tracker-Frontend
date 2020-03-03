@@ -14,10 +14,17 @@ import {
   MDBIcon
 } from 'mdbreact'
 import { BrowserRouter as Router } from 'react-router-dom'
+import { useEffect } from 'react'
 
 const Header = ({ user }) => {
   const [isOpen, setIsOpen] = useState(false)
-  // const userInfo = user ? user.username : 'ENTER LOGIN SHIT HERE'
+  const [loggedIn, setLoggedIn] = useState(false)
+
+  useEffect(() => {
+    if (user) {
+      setLoggedIn(true)
+    }
+  }, [user])
 
   const toggleCollapse = () => {
     setIsOpen(!isOpen)
@@ -25,6 +32,28 @@ const Header = ({ user }) => {
 
   const handleLogout = () => {
     window.localStorage.removeItem('loggedUser')
+  }
+
+  const checkLogin = () => {
+    if (loggedIn) {
+      return (
+        <MDBNavbarNav right>
+          <MDBNavItem>
+            <MDBDropdown>
+              <MDBDropdownToggle nav caret>
+                <MDBIcon icon="user-cog" />
+              </MDBDropdownToggle>
+              <MDBDropdownMenu right>
+                <MDBDropdownItem divider />
+                <MDBDropdownItem href="/" onClick={handleLogout}>
+                  Logout
+                </MDBDropdownItem>
+              </MDBDropdownMenu>
+            </MDBDropdown>
+          </MDBNavItem>
+        </MDBNavbarNav>
+      )
+    }
   }
 
   // TODO: FIGURE OUT HOW TO REFRESH PAGE AFTER LOGOUT
@@ -44,21 +73,7 @@ const Header = ({ user }) => {
               <MDBNavLink to="#!">Home</MDBNavLink>
             </MDBNavItem>
           </MDBNavbarNav>
-          <MDBNavbarNav right>
-            <MDBNavItem>
-              <MDBDropdown>
-                <MDBDropdownToggle nav caret>
-                  <MDBIcon icon="user-cog" />
-                </MDBDropdownToggle>
-                <MDBDropdownMenu right>
-                  <MDBDropdownItem divider />
-                  <MDBDropdownItem href="/" onClick={handleLogout}>
-                    Logout
-                  </MDBDropdownItem>
-                </MDBDropdownMenu>
-              </MDBDropdown>
-            </MDBNavItem>
-          </MDBNavbarNav>
+          {checkLogin()}
         </MDBCollapse>
       </MDBNavbar>
     </Router>
