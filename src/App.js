@@ -3,6 +3,7 @@ import Login from './components/Login'
 import apiService from './services/api'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Header from './components/Header'
+import Project from './components/Project'
 
 function App() {
   const [user, setUser] = useState(null)
@@ -12,7 +13,6 @@ function App() {
     const getProjects = async () => {
       const projectsInfo = await apiService.getProjects()
       setProjects(projectsInfo)
-      console.log(projectsInfo)
     }
     getProjects()
   }, [user])
@@ -42,7 +42,7 @@ function App() {
 
         <div>
           {projects.map(proj => (
-            <div>{proj.name}</div>
+            <Project key={proj._id} id={proj._id} />
           ))}
         </div>
       </>
