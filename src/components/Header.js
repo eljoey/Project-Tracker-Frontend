@@ -70,7 +70,7 @@ const Header = ({ user }) => {
         <MDBCollapse id="navbarCollapse" isOpen={isOpen} navbar>
           <MDBNavbarNav left>
             <MDBNavItem>
-              <MDBNavLink to="#!">Home</MDBNavLink>
+              <MDBNavLink to="/">Home</MDBNavLink>
             </MDBNavItem>
           </MDBNavbarNav>
           {checkLogin()}

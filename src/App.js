@@ -3,12 +3,12 @@ import Login from './components/Login'
 import apiService from './services/api'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Header from './components/Header'
-import Project from './components/Project'
+import ProjectMenu from './components/ProjectMenu'
 
 function App() {
   const [user, setUser] = useState(null)
   const [projects, setProjects] = useState([])
-
+  const [loading, setLoading] = useState(true)
   useEffect(() => {
     const getProjects = async () => {
       const projectsInfo = await apiService.getProjects()
@@ -28,7 +28,19 @@ function App() {
     }
   }, [])
 
-  if (!user) {
+  useEffect(() => {
+    setLoading(false)
+  }, [projects])
+  console.log(projects)
+
+  if (loading) {
+    return (
+      <>
+        <Header user={user} />
+        <div>LOADING...</div>
+      </>
+    )
+  } else if (!user) {
     return (
       <>
         <Header user={user} />
@@ -39,12 +51,7 @@ function App() {
     return (
       <>
         <Header user={user} />
-
-        <div>
-          {projects.map(proj => (
-            <Project key={proj._id} id={proj._id} />
-          ))}
-        </div>
+        <ProjectMenu projects={projects} />
       </>
     )
   }

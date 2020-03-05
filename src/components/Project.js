@@ -12,7 +12,7 @@ const Project = ({ id }) => {
     }
 
     fetchProject()
-  }, [id])
+  }, [])
 
   const renderProjects = () => {
     if (project) {
@@ -25,7 +25,7 @@ const Project = ({ id }) => {
   return (
     <>
       <div>Title: {project.name}</div>
-      {renderProjects()}
+      {renderProjects}
     </>
   )
 }
