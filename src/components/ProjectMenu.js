@@ -12,14 +12,9 @@ import {
 
 const ProjectMenu = ({ projects }) => {
   return (
-    <div>
-      <Router>
-        <Switch>
-          <Route path="/" render={() => <Projects projects={projects} />} />
-          <Route path="/project/:id" render={() => <Project />} />
-        </Switch>
-      </Router>
-    </div>
+    <Switch>
+      <Route path="/" render={() => <Projects projects={projects} />} />
+    </Switch>
   )
 }
 
