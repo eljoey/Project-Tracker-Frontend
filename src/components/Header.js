@@ -61,22 +61,20 @@ const Header = ({ user }) => {
   // TODO: MAKE UserCog NOT SHOW UP WHEN NOT LOGGED IN
 
   return (
-    <Router>
-      <MDBNavbar color="unique-color #3F729B" dark expand="md">
-        <MDBNavbarBrand>
-          <strong className="white-text">Project-Helper</strong>
-        </MDBNavbarBrand>
-        <MDBNavbarToggler onClick={toggleCollapse} />
-        <MDBCollapse id="navbarCollapse" isOpen={isOpen} navbar>
-          <MDBNavbarNav left>
-            <MDBNavItem>
-              <MDBNavLink to="/">Home</MDBNavLink>
-            </MDBNavItem>
-          </MDBNavbarNav>
-          {checkLogin()}
-        </MDBCollapse>
-      </MDBNavbar>
-    </Router>
+    <MDBNavbar color="unique-color #3F729B" dark expand="md">
+      <MDBNavbarBrand>
+        <strong className="white-text">Project-Helper</strong>
+      </MDBNavbarBrand>
+      <MDBNavbarToggler onClick={toggleCollapse} />
+      <MDBCollapse id="navbarCollapse" isOpen={isOpen} navbar>
+        <MDBNavbarNav left>
+          <MDBNavItem>
+            <MDBNavLink to="/">Home</MDBNavLink>
+          </MDBNavItem>
+        </MDBNavbarNav>
+        {checkLogin()}
+      </MDBCollapse>
+    </MDBNavbar>
   )
 }
 
