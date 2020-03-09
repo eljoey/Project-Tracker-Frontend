@@ -13,12 +13,13 @@ import {
   MDBDropdownItem,
   MDBIcon
 } from 'mdbreact'
-import { BrowserRouter as Router } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { useEffect } from 'react'
 
 const Header = ({ user }) => {
   const [isOpen, setIsOpen] = useState(false)
   const [loggedIn, setLoggedIn] = useState(false)
+  const history = useHistory()
 
   useEffect(() => {
     if (user) {
@@ -32,6 +33,7 @@ const Header = ({ user }) => {
 
   const handleLogout = () => {
     window.localStorage.removeItem('loggedUser')
+    history.push('/')
   }
 
   const checkLogin = () => {
