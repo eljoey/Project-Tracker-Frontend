@@ -13,7 +13,12 @@ import {
 const ProjectMenu = ({ projects }) => {
   return (
     <Switch>
-      <Route path="/" render={() => <Projects projects={projects} />} />
+      <Route exact path="/">
+        <Projects projects={projects} />
+      </Route>
+      <Route path="/project/:id">
+        <Project />
+      </Route>
     </Switch>
   )
 }

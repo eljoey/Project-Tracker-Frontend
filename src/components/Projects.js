@@ -14,11 +14,6 @@ const Projects = ({ projects }) => {
             </Link>
           ))}
         </div>
-        <Switch>
-          <Route path="/project/:id">
-            <Project />
-          </Route>
-        </Switch>
       </>
     )
   }
