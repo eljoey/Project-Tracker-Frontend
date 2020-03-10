@@ -57,12 +57,21 @@ const Header = ({ user, setUser }) => {
           </MDBNavItem>
         </MDBNavbarNav>
       )
+    } else {
+      return (
+        <MDBNavbarNav right>
+          <MDBNavItem>
+            <MDBNavLink to="/login">LogIn</MDBNavLink>
+          </MDBNavItem>
+          <MDBNavItem>
+            <MDBNavLink to="/signup">SignUp</MDBNavLink>
+          </MDBNavItem>
+        </MDBNavbarNav>
+      )
     }
   }
 
-  // TODO: FIGURE OUT HOW TO REFRESH PAGE AFTER LOGOUT
   // TODO: MAKE SIGNUP/CREATE ACCOUNT SHOW UP WHEN NOT LOGGED IN
-  // TODO: MAKE UserCog NOT SHOW UP WHEN NOT LOGGED IN
 
   return (
     <MDBNavbar color="unique-color #3F729B" dark expand="md">
