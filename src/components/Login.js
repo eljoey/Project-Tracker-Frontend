@@ -10,7 +10,7 @@ import {
   MDBCard,
   MDBCardBody
 } from 'mdbreact'
-import {useHistory} from 'react-router-dom'
+import { useHistory, Link } from 'react-router-dom'
 
 const Login = ({ setUser }) => {
   let history = useHistory()
@@ -75,12 +75,17 @@ const Login = ({ setUser }) => {
                   </MDBBtn>
                 </div>
               </form>
-              <p className="font-small grey-text d-flex justify-content-center">
-                Don't have an account?
-                <a href="#!" className="dark-grey-text font-weight-bold ml-1">
-                  Sign up
-                </a>
-              </p>
+              <div>
+                <p className="font-small grey-text d-flex justify-content-center">
+                  Don't have an account?
+                  <Link
+                    to="/signup"
+                    className="dark-grey-text font-weight-bold ml-1"
+                  >
+                    Sign up
+                  </Link>
+                </p>
+              </div>
             </MDBCardBody>
           </MDBCard>
         </MDBCol>

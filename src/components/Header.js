@@ -39,7 +39,7 @@ const Header = ({ user, setUser }) => {
     history.push('/')
   }
 
-  const checkLogin = () => {
+  const rightNavCheck = () => {
     if (loggedIn) {
       return (
         <MDBNavbarNav right>
@@ -70,6 +70,16 @@ const Header = ({ user, setUser }) => {
     }
   }
 
+  const leftNavCheck = () => {
+    if (loggedIn) {
+      return (
+        <MDBNavItem>
+          <MDBNavLink to="/projects">Projects</MDBNavLink>
+        </MDBNavItem>
+      )
+    }
+  }
+
   // TODO: MAKE SIGNUP/CREATE ACCOUNT SHOW UP WHEN NOT LOGGED IN
 
   return (
@@ -83,8 +93,9 @@ const Header = ({ user, setUser }) => {
           <MDBNavItem>
             <MDBNavLink to="/">Home</MDBNavLink>
           </MDBNavItem>
+          {leftNavCheck()}
         </MDBNavbarNav>
-        {checkLogin()}
+        {rightNavCheck()}
       </MDBCollapse>
     </MDBNavbar>
   )
