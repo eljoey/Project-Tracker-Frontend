@@ -16,7 +16,7 @@ import {
 import { useHistory } from 'react-router-dom'
 import { useEffect } from 'react'
 
-const Header = ({ user }) => {
+const Header = ({ user, setUser }) => {
   const [isOpen, setIsOpen] = useState(false)
   const [loggedIn, setLoggedIn] = useState(false)
   const history = useHistory()
@@ -24,6 +24,8 @@ const Header = ({ user }) => {
   useEffect(() => {
     if (user) {
       setLoggedIn(true)
+    } else {
+      setLoggedIn(false)
     }
   }, [user])
 
@@ -31,8 +33,10 @@ const Header = ({ user }) => {
     setIsOpen(!isOpen)
   }
 
+  console.log(user)
   const handleLogout = () => {
     window.localStorage.removeItem('loggedUser')
+    setUser(null)
     history.push('/')
   }
 
@@ -47,9 +51,7 @@ const Header = ({ user }) => {
               </MDBDropdownToggle>
               <MDBDropdownMenu right>
                 <MDBDropdownItem divider />
-                <MDBDropdownItem href="/" onClick={handleLogout}>
-                  Logout
-                </MDBDropdownItem>
+                <MDBDropdownItem onClick={handleLogout}>Logout</MDBDropdownItem>
               </MDBDropdownMenu>
             </MDBDropdown>
           </MDBNavItem>

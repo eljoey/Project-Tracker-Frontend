@@ -1,6 +1,5 @@
 import React from 'react'
-import Project from './Project'
-import { Link, withRouter, Switch, Route } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 const Projects = ({ projects }) => {
   const displayProjects = () => {
@@ -8,10 +7,10 @@ const Projects = ({ projects }) => {
       <>
         <div>
           {projects.map(proj => (
-            <Link to={`/project/${proj._id}`} key={proj._id}>
-              {' '}
-              {proj._id}{' '}
-            </Link>
+            <div key={proj._id}>
+              <Link to={`/project/${proj._id}`}>{proj.name}</Link>
+              <p>{proj.description}</p>
+            </div>
           ))}
         </div>
       </>

@@ -15,7 +15,7 @@ const Project = () => {
 
     fetchProject()
   }, [id])
-  console.log(project)
+
   const renderBugs = () => {
     if (project.bugs) {
       return project.bugs.map(bug => <p key={bug._id}>{bug.name}</p>)

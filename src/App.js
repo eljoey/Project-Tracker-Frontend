@@ -31,26 +31,25 @@ function App() {
   useEffect(() => {
     setLoading(false)
   }, [projects])
-  console.log(projects)
 
   if (loading) {
     return (
       <>
-        <Header user={user} />
+        <Header user={user} setUser={setUser} />
         <div>LOADING...</div>
       </>
     )
   } else if (!user) {
     return (
       <>
-        <Header user={user} />
+        <Header user={user} setUser={setUser} />
         <Login setUser={setUser} />
       </>
     )
   } else {
     return (
       <>
-        <Header user={user} />
+        <Header user={user} setUser={setUser} />
         <ProjectMenu projects={projects} />
       </>
     )
