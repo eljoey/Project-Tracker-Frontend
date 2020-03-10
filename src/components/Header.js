@@ -33,7 +33,6 @@ const Header = ({ user, setUser }) => {
     setIsOpen(!isOpen)
   }
 
-  console.log(user)
   const handleLogout = () => {
     window.localStorage.removeItem('loggedUser')
     setUser(null)

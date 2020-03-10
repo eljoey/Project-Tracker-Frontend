@@ -10,8 +10,11 @@ import {
   MDBCard,
   MDBCardBody
 } from 'mdbreact'
+import {useHistory} from 'react-router-dom'
 
 const Login = ({ setUser }) => {
+  let history = useHistory()
+
   const handleLogin = async e => {
     e.preventDefault()
     const username = e.target.username.value
@@ -28,6 +31,7 @@ const Login = ({ setUser }) => {
       window.localStorage.setItem('loggedUser', JSON.stringify(user))
 
       apiService.setToken(user.token)
+      history.push('/')
     } catch (err) {
       console.log(err.response.data.error)
     }
