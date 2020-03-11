@@ -2,6 +2,7 @@ import React from 'react'
 import Projects from './Projects'
 import Project from './Project'
 import Login from './Login'
+import Signup from './Signup'
 import Home from './Home'
 import {
   BrowserRouter as Router,
@@ -12,7 +13,7 @@ import {
   withRouter
 } from 'react-router-dom'
 
-const ProjectMenu = ({ projects, setUser }) => {
+const ProjectMenu = ({ projects, setUser, setMessage }) => {
   return (
     <Switch>
       <Route exact path="/">
@@ -25,7 +26,10 @@ const ProjectMenu = ({ projects, setUser }) => {
         <Project />
       </Route>
       <Route path="/login">
-        <Login setUser={setUser} />
+        <Login setUser={setUser} setMessage={setMessage} />
+      </Route>
+      <Route path="/signup">
+        <Signup setUser={setUser} setMessage={setMessage} />
       </Route>
     </Switch>
   )

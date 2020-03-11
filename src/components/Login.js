@@ -12,7 +12,7 @@ import {
 } from 'mdbreact'
 import { useHistory, Link } from 'react-router-dom'
 
-const Login = ({ setUser }) => {
+const Login = ({ setUser, setMessage }) => {
   let history = useHistory()
 
   const handleLogin = async e => {
@@ -33,7 +33,10 @@ const Login = ({ setUser }) => {
       apiService.setToken(user.token)
       history.push('/')
     } catch (err) {
-      console.log(err.response.data.error)
+      setMessage(err.response.data.error)
+      setTimeout(() => {
+        setMessage(null)
+      }, 3000)
     }
   }
 
@@ -55,13 +58,17 @@ const Login = ({ setUser }) => {
                   group
                   type="text"
                   validate
+                  outline
+                  required
                 />
                 <MDBInput
                   id="password"
                   label="Password"
                   group
                   type="password"
+                  required
                   validate
+                  outline
                   containerClass="mb-0"
                 />
 

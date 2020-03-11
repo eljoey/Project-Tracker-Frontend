@@ -3,15 +3,19 @@ import apiService from './services/api'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Header from './components/Header'
 import ProjectMenu from './components/ProjectMenu'
+import Notification from './components/Notification'
+
+// TODO: RESTRICT LOGIN AND SIGNUP PAGES WHEN LOGGED IN
 
 function App() {
   const [user, setUser] = useState(null)
   const [projects, setProjects] = useState([])
   const [loading, setLoading] = useState(false)
+  const [message, setMessage] = useState(null)
 
   useEffect(() => {
     const getProjects = async () => {
-      console.log('IM IN GET PROJECTS')
+      // if statement prevents calling api on initial page load
       if (user === null) {
         return
       }
@@ -52,7 +56,12 @@ function App() {
     return (
       <>
         <Header user={user} setUser={setUser} />
-        <ProjectMenu projects={projects} setUser={setUser} />
+        <Notification message={message} />
+        <ProjectMenu
+          projects={projects}
+          setUser={setUser}
+          setMessage={setMessage}
+        />
       </>
     )
   }
