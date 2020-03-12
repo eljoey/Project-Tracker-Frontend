@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import apiService from '../services/api'
 import { useParams, Link } from 'react-router-dom'
+import BackBTN from './BackBTN'
 
 const Project = () => {
   const [project, setProject] = useState({})
@@ -41,6 +42,7 @@ const Project = () => {
       <div>Title: {project.name}</div>
       <div>{renderBugs()}</div>
       <div>{renderFeatures()}</div>
+      <BackBTN />
     </>
   )
 }
