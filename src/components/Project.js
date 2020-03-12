@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import apiService from '../services/api'
-import { useParams } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 
 const Project = () => {
   const [project, setProject] = useState({})
@@ -18,14 +18,29 @@ const Project = () => {
 
   const renderBugs = () => {
     if (project.bugs) {
-      return project.bugs.map(bug => <p key={bug._id}>{bug.name}</p>)
+      return project.bugs.map(bug => (
+        <Link to={`/project/${id}/bug/${bug._id}`} key={bug._id}>
+          {bug.name}
+        </Link>
+      ))
+    }
+  }
+
+  const renderFeatures = () => {
+    if (project.features) {
+      return project.features.map(feature => (
+        <Link to={`/project/${id}/feature/${feature._id}`} key={feature._id}>
+          {feature.name}
+        </Link>
+      ))
     }
   }
 
   return (
     <>
       <div>Title: {project.name}</div>
-      {renderBugs()}
+      <div>{renderBugs()}</div>
+      <div>{renderFeatures()}</div>
     </>
   )
 }
