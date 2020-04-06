@@ -25,7 +25,7 @@ const ProjectMenu = ({ projects, setUser, setMessage }) => {
       <Route exact path="/project/:id">
         <Project />
       </Route>
-      <Route path="/project/:id/:type/:typeId">
+      <Route path="/project/:projectId/:type/:typeId">
         <Type />
       </Route>
     </Switch>

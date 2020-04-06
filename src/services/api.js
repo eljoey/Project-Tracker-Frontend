@@ -72,9 +72,9 @@ const getType = async (projId, type) => {
   return typeInfo.data
 }
 
-const getTypeById = async (projId, type, featureId) => {
+const getTypeById = async (projId, type, typeId) => {
   const typeInfo = await axios.get(
-    `${baseUrl}/project/${projId}/${type}/${featureId}`,
+    `${baseUrl}/project/${projId}/${type}/${typeId}`,
     header
   )
 
@@ -91,9 +91,9 @@ const createType = async (projId, type, feature) => {
   return createdType.data
 }
 
-const updateType = async (projId, type, featureId, feature) => {
+const updateType = async (projId, type, typeId, feature) => {
   const updatedType = await axios.post(
-    `${baseUrl}/project/${projId}/${type}/${featureId}/update`,
+    `${baseUrl}/project/${projId}/${type}/${typeId}/update`,
     feature,
     header
   )
@@ -101,9 +101,9 @@ const updateType = async (projId, type, featureId, feature) => {
   return updatedType.data
 }
 
-const deleteType = async (projId, type, featureId) => {
+const deleteType = async (projId, type, typeId) => {
   const deletedFeature = await axios.post(
-    `${baseUrl}/project/${projId}/${type}/${featureId}/delete`,
+    `${baseUrl}/project/${projId}/${type}/${typeId}/delete`,
     header
   )
 
