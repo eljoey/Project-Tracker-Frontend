@@ -1,6 +1,6 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import BackBTN from './BackBTN'
+import BackBTN from './utils/BackBTN'
 
 const Type = () => {
   const { type, typeId } = useParams()
