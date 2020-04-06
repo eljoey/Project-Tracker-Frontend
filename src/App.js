@@ -37,7 +37,6 @@ function App() {
     const loggedUserJSON = window.localStorage.getItem('loggedUser')
 
     if (loggedUserJSON) {
-      console.log('IM IN LOGGEDUSER')
       const user = JSON.parse(loggedUserJSON)
       setUser(user)
 
@@ -55,7 +54,7 @@ function App() {
   } else {
     return (
       <>
-        <Header user={user} setUser={setUser} />
+        <Header user={user} setUser={setUser} setProjects={setProjects} />
         <Notification message={message} />
         <ProjectMenu
           projects={projects}

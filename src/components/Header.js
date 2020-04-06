@@ -16,7 +16,7 @@ import {
 import { useHistory } from 'react-router-dom'
 import { useEffect } from 'react'
 
-const Header = ({ user, setUser }) => {
+const Header = ({ user, setUser, setProjects }) => {
   const [isOpen, setIsOpen] = useState(false)
   const [loggedIn, setLoggedIn] = useState(false)
   const history = useHistory()
@@ -36,6 +36,7 @@ const Header = ({ user, setUser }) => {
   const handleLogout = () => {
     window.localStorage.removeItem('loggedUser')
     setUser(null)
+    setProjects([])
     history.push('/')
   }
 
