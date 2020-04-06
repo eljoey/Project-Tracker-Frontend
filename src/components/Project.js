@@ -41,8 +41,10 @@ const Project = () => {
     <>
       <div>Title: {project.name}</div>
       <h3>Features</h3>
+      <Link to={`/project/${id}/feature/create`}> Create new Feature </Link>
       <div>{renderFeatures()}</div>
       <h3>Bugs</h3>
+      <Link to={`/project/${id}/bug/create`}> Create new Bug </Link>
       <div>{renderBugs()}</div>
       <BackBTN />
     </>
