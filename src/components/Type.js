@@ -19,7 +19,6 @@ const Type = () => {
 
       setProjectType(fetchedType)
       setComments(fetchedComments)
-      console.log('comments', fetchedComments)
     }
 
     fetchType().catch((err) => console.log(err))
@@ -33,7 +32,7 @@ const Type = () => {
       </div>
       <div>
         {comments.map((comment) => (
-          <p>{comment.content}</p>
+          <p key={comment._id}>{comment.content}</p>
         ))}
       </div>
       <BackBTN />
