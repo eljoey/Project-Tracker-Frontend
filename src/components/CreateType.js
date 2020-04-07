@@ -7,7 +7,7 @@ import {
   MDBInput,
   MDBBtn,
   MDBCard,
-  MDBCardBody
+  MDBCardBody,
 } from 'mdbreact'
 import apiService from '../services/api'
 
@@ -16,25 +16,25 @@ const CreateType = ({ setMessage }) => {
   const { projectId, type } = useParams()
   const [formValues, setFormValues] = useState({
     name: '',
-    description: ''
+    description: '',
   })
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     setFormValues({ ...formValues, [e.target.id]: e.target.value })
   }
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
 
     const newType = {
       name: formValues.name,
-      description: formValues.description
+      description: formValues.description,
     }
 
     try {
       // TODO: Validation
 
-      const createdType = await apiService.createType(projectId, type, newType)
+      await apiService.createType(projectId, type, newType)
 
       history.push(`/project/${projectId}`)
     } catch (err) {

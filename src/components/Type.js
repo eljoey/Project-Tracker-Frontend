@@ -6,22 +6,35 @@ import apiService from '../services/api'
 const Type = () => {
   const { projectId, type, typeId } = useParams()
   const [projectType, setProjectType] = useState([])
+  const [comments, setComments] = useState([])
 
   useEffect(() => {
     const fetchType = async () => {
       const fetchedType = await apiService.getTypeById(projectId, type, typeId)
+      const fetchedComments = await apiService.getComments(
+        projectId,
+        type,
+        typeId
+      )
 
       setProjectType(fetchedType)
+      setComments(fetchedComments)
+      console.log('comments', fetchedComments)
     }
 
-    fetchType()
-  }, [projectId, type, typeId])
+    fetchType().catch((err) => console.log(err))
+  }, [])
 
   return (
     <>
       <div>
         <h5>{projectType.name}</h5>
         <p>{projectType.description}</p>
+      </div>
+      <div>
+        {comments.map((comment) => (
+          <p>{comment.content}</p>
+        ))}
       </div>
       <BackBTN />
     </>

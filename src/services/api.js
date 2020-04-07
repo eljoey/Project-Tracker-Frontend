@@ -5,16 +5,16 @@ const baseUrl = 'https://lit-bayou-93209.herokuapp.com/api'
 let token = null
 let header = null
 
-const setToken = newToken => {
+const setToken = (newToken) => {
   token = `bearer ${newToken}`
   setAuthHeader(token)
 }
 
-const setAuthHeader = info => {
+const setAuthHeader = (info) => {
   header = {
     headers: {
-      Authorization: info
-    }
+      Authorization: info,
+    },
   }
 }
 
@@ -26,13 +26,13 @@ const getProjects = async () => {
   return projects.data
 }
 
-const getProjectId = async id => {
+const getProjectId = async (id) => {
   const project = await axios.get(`${baseUrl}/project/${id}`, header)
 
   return project.data
 }
 
-const createProject = async project => {
+const createProject = async (project) => {
   const newProject = await axios.post(
     `${baseUrl}/project/create`,
     project,
@@ -52,7 +52,7 @@ const editProject = async (id, project) => {
   return updatedProject.data
 }
 
-const deleteProject = async id => {
+const deleteProject = async (id) => {
   const deletedProject = await axios.post(
     `${baseUrl}/project/${id}/delete`,
     header
@@ -114,7 +114,7 @@ const deleteType = async (projId, type, typeId) => {
 
 const getComments = async (projId, type, typeId) => {
   const comments = await axios.get(
-    `${baseUrl}/project/${projId}/${type}/${typeId}/comments`,
+    `${baseUrl}/project/${projId}/${type}s/${typeId}/comments`,
     header
   )
 
@@ -123,7 +123,7 @@ const getComments = async (projId, type, typeId) => {
 
 const createComment = async (projId, type, typeId, comment) => {
   const createdComment = await axios.post(
-    `${baseUrl}/project/${projId}/${type}/${typeId}/comment/create`,
+    `${baseUrl}/project/${projId}/${type}s/${typeId}/comment/create`,
     comment,
     header
   )
@@ -133,7 +133,7 @@ const createComment = async (projId, type, typeId, comment) => {
 
 const updateComment = async (projId, type, typeId, comment) => {
   const updatedComment = await axios.post(
-    `${baseUrl}/project/${projId}/${type}/${typeId}/comment/update`,
+    `${baseUrl}/project/${projId}/${type}s/${typeId}/comment/update`,
     comment,
     header
   )
@@ -143,7 +143,7 @@ const updateComment = async (projId, type, typeId, comment) => {
 
 const deleteComment = async (projId, type, typeId, commentId) => {
   const deletedComment = await axios.post(
-    `${baseUrl}/project/${projId}/${type}/${typeId}/comment/${commentId}/delete`,
+    `${baseUrl}/project/${projId}/${type}s/${typeId}/comment/${commentId}/delete`,
     header
   )
 
@@ -165,5 +165,5 @@ export default {
   getComments,
   createComment,
   updateComment,
-  deleteComment
+  deleteComment,
 }
