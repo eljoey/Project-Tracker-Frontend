@@ -4,7 +4,6 @@ import BackBTN from './utils/BackBTN'
 import apiService from '../services/api'
 import Comments from './Comments'
 
-// TODO: refactor out comment section into its own component.
 // TODO: form validation on comments
 // TODO: error handling on comment submit
 // TODO: Edit users own comments
