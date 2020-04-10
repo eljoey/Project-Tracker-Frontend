@@ -10,6 +10,7 @@ import {
   MDBCard,
   MDBCardBody,
 } from 'mdbreact'
+import Moment from 'react-moment'
 
 const Comments = ({ comments, setComments }) => {
   const { projectId, type, typeId } = useParams()
@@ -46,7 +47,16 @@ const Comments = ({ comments, setComments }) => {
     <>
       <div>
         {comments.map((comment) => (
-          <p key={comment._id}>{comment.content}</p>
+          <div key={comment._id}>
+            <p className="mb-1"> {comment.content} </p>
+            <p className="ml-3 font-weight-bold">
+              {' '}
+              - {comment.user.username}{' '}
+              <span className="font-italic font-weight-normal">
+                - <Moment fromNow>{comment.created}</Moment>
+              </span>{' '}
+            </p>
+          </div>
         ))}
       </div>
       <div>
