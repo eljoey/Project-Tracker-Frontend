@@ -37,7 +37,6 @@ const Type = () => {
         <h4>{projectType.name}</h4>
         <p>{projectType.description}</p>
       </div>
-      <h6>Comments</h6>
       <Comments comments={comments} setComments={setComments} />
       <BackBTN />
     </>

@@ -12,6 +12,8 @@ import {
 } from 'mdbreact'
 import Moment from 'react-moment'
 
+// TODO: Page comments (10per page)
+
 const Comments = ({ comments, setComments }) => {
   const { projectId, type, typeId } = useParams()
   const [formValues, setFormValues] = useState({
@@ -46,20 +48,6 @@ const Comments = ({ comments, setComments }) => {
   return (
     <>
       <div>
-        {comments.map((comment) => (
-          <div key={comment._id}>
-            <p className="mb-1"> {comment.content} </p>
-            <p className="ml-3 font-weight-bold">
-              {' '}
-              - {comment.user.username}{' '}
-              <span className="font-italic font-weight-normal">
-                - <Moment fromNow>{comment.created}</Moment>
-              </span>{' '}
-            </p>
-          </div>
-        ))}
-      </div>
-      <div>
         <MDBContainer className=" d-flex flex-column justify-content-center align-content-center">
           <MDBRow>
             <MDBCol md="8">
@@ -93,6 +81,24 @@ const Comments = ({ comments, setComments }) => {
             </MDBCol>
           </MDBRow>
         </MDBContainer>
+      </div>
+      <h6>Comments</h6>
+      <div>
+        {comments.map((comment) => (
+          <div
+            key={comment._id}
+            className="border border-dark #eeeeee grey lighten-2 rounded-mb-5 m-3"
+          >
+            <p className="m-1"> {comment.content} </p>
+            <p className="ml-3 font-weight-bold">
+              {' '}
+              - {comment.user.username}{' '}
+              <span className="font-italic font-weight-normal">
+                - <Moment fromNow>{comment.created}</Moment>
+              </span>{' '}
+            </p>
+          </div>
+        ))}
       </div>
     </>
   )
