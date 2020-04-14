@@ -19,6 +19,10 @@ const Comments = ({ comments, setComments }) => {
   const [formValues, setFormValues] = useState({
     comment: '',
   })
+  const [toggledBTNS, setToggledBTNS] = useState({
+    old: false,
+    new: true,
+  })
 
   const handleChange = (e) => {
     setFormValues({ ...formValues, [e.target.id]: e.target.value })
@@ -45,10 +49,89 @@ const Comments = ({ comments, setComments }) => {
     }
   }
 
+  const handleSort = (order) => {
+    let sortedComments
+
+    if (order === 'new') {
+      // toggle button as active
+      setToggledBTNS({
+        old: false,
+        new: true,
+      })
+      // sort by newest first
+      sortedComments = comments.sort((a, b) => {
+        const dateA = new Date(a.created)
+        const dateB = new Date(b.created)
+
+        return dateB - dateA
+      })
+    } else {
+      // toggle button as active
+      setToggledBTNS({
+        old: true,
+        new: false,
+      })
+      // sort by oldest first
+      sortedComments = comments.sort((a, b) => {
+        const dateA = new Date(a.created)
+        const dateB = new Date(b.created)
+
+        return dateA - dateB
+      })
+    }
+
+    setComments(sortedComments)
+    console.log(comments)
+  }
+
+  const renderSortBTNS = () => {
+    if (toggledBTNS.new) {
+      return (
+        <>
+          <MDBBtn
+            active
+            type="button"
+            className="btn  btn-sm"
+            onClick={() => handleSort('new')}
+          >
+            New
+          </MDBBtn>{' '}
+          <MDBBtn
+            type="button"
+            className="btn btn-sm "
+            onClick={() => handleSort('old')}
+          >
+            Old
+          </MDBBtn>
+        </>
+      )
+    } else {
+      return (
+        <>
+          <MDBBtn
+            type="button"
+            className="btn  btn-sm"
+            onClick={() => handleSort('new')}
+          >
+            New
+          </MDBBtn>{' '}
+          <MDBBtn
+            active
+            type="button"
+            className="btn btn-sm "
+            onClick={() => handleSort('old')}
+          >
+            Old
+          </MDBBtn>
+        </>
+      )
+    }
+  }
+
   return (
     <>
       <div>
-        <MDBContainer className=" d-flex flex-column justify-content-center align-content-center">
+        <MDBContainer className="d-flex flex-column justify-content-center align-content-center">
           <MDBRow>
             <MDBCol md="8">
               <MDBCard>
@@ -82,7 +165,9 @@ const Comments = ({ comments, setComments }) => {
           </MDBRow>
         </MDBContainer>
       </div>
-      <h6>Comments</h6>
+      <div>
+        <h6>Comments</h6> <span>Sort By {renderSortBTNS()}</span>
+      </div>
       <div>
         {comments.map((comment) => (
           <div
