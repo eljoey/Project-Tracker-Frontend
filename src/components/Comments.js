@@ -81,7 +81,6 @@ const Comments = ({ comments, setComments }) => {
     }
 
     setComments(sortedComments)
-    console.log(comments)
   }
 
   const renderSortBTNS = () => {

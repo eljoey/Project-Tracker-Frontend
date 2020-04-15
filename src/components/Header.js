@@ -11,9 +11,9 @@ import {
   MDBDropdownToggle,
   MDBDropdownMenu,
   MDBDropdownItem,
-  MDBIcon
+  MDBIcon,
 } from 'mdbreact'
-import { useHistory } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { useEffect } from 'react'
 
 const Header = ({ user, setUser, setProjects }) => {
@@ -50,6 +50,12 @@ const Header = ({ user, setUser, setProjects }) => {
                 <MDBIcon icon="user-cog" />
               </MDBDropdownToggle>
               <MDBDropdownMenu right>
+                <MDBDropdownItem tag={Link} to={'/account'}>
+                  Account
+                </MDBDropdownItem>
+                <MDBDropdownItem tag={Link} to={'/projects'}>
+                  Projects
+                </MDBDropdownItem>
                 <MDBDropdownItem divider />
                 <MDBDropdownItem onClick={handleLogout}>Logout</MDBDropdownItem>
               </MDBDropdownMenu>

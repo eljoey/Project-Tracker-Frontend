@@ -18,6 +18,13 @@ const setAuthHeader = (info) => {
   }
 }
 
+// User
+const getUserInfo = async () => {
+  const userInfo = await axios.get(`${baseUrl}/user`, header)
+
+  return userInfo.data
+}
+
 // Project
 
 const getProjects = async () => {
@@ -151,6 +158,7 @@ const deleteComment = async (projId, type, typeId, commentId) => {
 }
 
 export default {
+  getUserInfo,
   setToken,
   getProjects,
   getProjectId,
