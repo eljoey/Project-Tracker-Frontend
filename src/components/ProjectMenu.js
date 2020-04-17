@@ -10,14 +10,14 @@ import CreateType from './CreateType'
 import CreateProject from './CreateProject'
 import { Route, Switch } from 'react-router-dom'
 
-const ProjectMenu = ({ projects, user, setUser, setMessage }) => {
+const ProjectMenu = ({ projects, setProjects, user, setUser, setMessage }) => {
   return (
     <Switch>
       <Route exact path="/">
         <Home />
       </Route>
       <Route path="/account">
-        <Account user={user} setMessage={setMessage} />
+        <Account setMessage={setMessage} />
       </Route>
       <Route path="/login">
         <Login setUser={setUser} setMessage={setMessage} />
@@ -29,7 +29,11 @@ const ProjectMenu = ({ projects, user, setUser, setMessage }) => {
         <Projects projects={projects} />
       </Route>
       <Route exact path="/projects/create">
-        <CreateProject />
+        <CreateProject
+          user={user}
+          projects={projects}
+          setProjects={setProjects}
+        />
       </Route>
       <Route exact path="/project/:id">
         <Project />

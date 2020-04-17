@@ -57,7 +57,9 @@ function App() {
         <Header user={user} setUser={setUser} setProjects={setProjects} />
         <Notification message={message} />
         <ProjectMenu
+          user={user}
           projects={projects}
+          setProjects={setProjects}
           setUser={setUser}
           setMessage={setMessage}
         />
