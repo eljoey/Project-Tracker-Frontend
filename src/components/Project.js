@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import apiService from '../services/api'
-import { useParams, Link } from 'react-router-dom'
+import { useParams, Link, useHistory } from 'react-router-dom'
 import BackBTN from './utils/BackBTN'
+import { MDBBtn } from 'mdbreact'
 
-const Project = () => {
+const Project = ({ user }) => {
+  const history = useHistory()
   const [project, setProject] = useState({})
   const { id } = useParams()
 
@@ -43,6 +45,37 @@ const Project = () => {
     }
   }
 
+  console.log('THIS IS USER', user)
+  const handleDelete = async () => {
+    if (project.admin.username !== user.username) {
+      return
+    }
+
+    try {
+      const deletedProject = await apiService.deleteProject(project._id)
+      console.log(deletedProject)
+    } catch (err) {
+      console.log(err)
+    }
+
+    // history.push('/projects')
+  }
+
+  const renderDeleteButton = () => {
+    // find a way to not need this(user doesnt show up on first render so it throws an error)
+    if (!user || !project.admin) {
+      return
+    }
+
+    if (user.username === project.admin.username) {
+      return (
+        <MDBBtn color="danger" size="sm" onClick={handleDelete}>
+          Delete Project
+        </MDBBtn>
+      )
+    }
+  }
+
   return (
     <>
       <div>Title: {project.name}</div>
@@ -54,6 +87,7 @@ const Project = () => {
       <Link to={`/project/${id}/bug/create`}> Create new Bug </Link>
       <div>{renderBugs()}</div>
       <BackBTN />
+      {renderDeleteButton()}
     </>
   )
 }
