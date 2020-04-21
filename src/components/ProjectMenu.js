@@ -36,7 +36,7 @@ const ProjectMenu = ({ projects, setProjects, user, setUser, setMessage }) => {
         />
       </Route>
       <Route exact path="/project/:id">
-        <Project user={user} />
+        <Project user={user} projects={projects} setProjects={setProjects} />
       </Route>
       <Route exact path="/project/:projectId/:type/create">
         <CreateType setMessage={setMessage} />

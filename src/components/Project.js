@@ -4,7 +4,7 @@ import { useParams, Link, useHistory } from 'react-router-dom'
 import BackBTN from './utils/BackBTN'
 import { MDBBtn } from 'mdbreact'
 
-const Project = ({ user }) => {
+const Project = ({ user, projects, setProjects }) => {
   const history = useHistory()
   const [project, setProject] = useState({})
   const { id } = useParams()
@@ -45,7 +45,6 @@ const Project = ({ user }) => {
     }
   }
 
-  console.log('THIS IS USER', user)
   const handleDelete = async () => {
     if (project.admin.username !== user.username) {
       return
@@ -53,12 +52,23 @@ const Project = ({ user }) => {
 
     try {
       const deletedProject = await apiService.deleteProject(project._id)
-      console.log(deletedProject)
+
+      // TODO: SEND MSG THAT PROJECT DELETED
+
+      // Remove deleted project from project state and update with it removed
+      const updatedProjects = projects.filter(
+        (proj) => proj._id !== project._id
+      )
+
+      setProjects([...updatedProjects])
+
+      history.push('/projects')
     } catch (err) {
+      // TODO: DISPLAY ERROR ON SITE
       console.log(err)
     }
 
-    // history.push('/projects')
+    history.push('/projects')
   }
 
   const renderDeleteButton = () => {

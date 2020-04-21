@@ -60,10 +60,9 @@ const editProject = async (id, project) => {
 }
 
 const deleteProject = async (id) => {
-  console.log('TOKEN', token)
-  console.log('URL ----', `${baseUrl}/project/${id}/delete`)
   const deletedProject = await axios.post(
     `${baseUrl}/project/${id}/delete`,
+    [],
     header
   )
 
