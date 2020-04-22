@@ -35,6 +35,10 @@ const Comments = ({ comments, setComments }) => {
       content: formValues.comment,
     }
 
+    setFormValues({
+      comment: '',
+    })
+
     try {
       const createdComment = await apiService.createComment(
         projectId,
@@ -43,7 +47,12 @@ const Comments = ({ comments, setComments }) => {
         newComment
       )
 
-      setComments([...comments, createdComment])
+      // Adds comment to begining or end depending on sort order
+      if (toggledBTNS.old) {
+        setComments([...comments, createdComment])
+      } else {
+        setComments([createdComment, ...comments])
+      }
     } catch (err) {
       console.log(err)
     }
@@ -137,7 +146,7 @@ const Comments = ({ comments, setComments }) => {
                 <MDBCardBody className="mx-1 mt-1">
                   <form onSubmit={handleSubmit}>
                     <MDBInput
-                      value={formValues.description}
+                      value={formValues.comment}
                       onChange={handleChange}
                       id="comment"
                       label="Comment"

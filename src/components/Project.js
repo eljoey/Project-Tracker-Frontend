@@ -71,6 +71,7 @@ const Project = ({ user, projects, setProjects }) => {
     history.push('/projects')
   }
 
+  // Only displayed if logged in user is admin of project.
   const renderDeleteButton = () => {
     // find a way to not need this(user doesnt show up on first render so it throws an error)
     if (!user || !project.admin) {
