@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { useHistory, Link } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
+import { useParams, useHistory, Link } from 'react-router-dom'
 import {
   MDBContainer,
   MDBRow,
@@ -13,27 +13,66 @@ import apiService from '../services/api'
 
 // TODO: Figure out how I'm going to handle adding members
 
-const CreateProject = ({ user, projects, setProjects }) => {
+const ProjectForm = ({ user, projects, setProjects }) => {
   const history = useHistory()
+  const { id } = useParams()
+  const [isEditing, setIsEditing] = useState(false)
   const [formValues, setFormValues] = useState({
+    title: '',
     name: '',
     description: '',
-    memberUsernames: '',
   })
+
+  useEffect(() => {
+    // Sets form fields for the project that wants to be edited
+    if (id) {
+      const editProject = projects.find((proj) => proj._id === id)
+
+      setIsEditing(true)
+      setFormValues({
+        title: `Edit Project`,
+        name: `${editProject.name || ''}`,
+        description: `${editProject.description || ''}`,
+      })
+    } else {
+      setFormValues({
+        ...formValues,
+        title: 'Create Project',
+      })
+    }
+  }, [])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    const newProject = {
-      name: formValues.name,
-      description: formValues.description,
-      memberUsernames: [user.username],
+    let currentProject
+    if (isEditing) {
+      const project = await apiService.getProjectId(id)
+
+      const editedProject = {
+        ...project,
+        name: formValues.name,
+        description: formValues.description,
+      }
+
+      currentProject = await apiService.editProject(id, editedProject)
+
+      const updatedProjects = projects
+        .filter((proj) => proj._id !== id)
+        .concat(editedProject)
+      setProjects(updatedProjects)
+    } else {
+      const newProject = {
+        name: formValues.name,
+        description: formValues.description,
+        memberUsernames: [user.username],
+      }
+
+      currentProject = await apiService.createProject(newProject)
+      setProjects([...projects, currentProject])
     }
 
-    const createdProject = await apiService.createProject(newProject)
-    setProjects([...projects, createdProject])
-
-    history.push(`/project/${createdProject._id}`)
+    history.push(`/project/${currentProject._id}`)
   }
 
   const handleChange = (e) => {
@@ -48,7 +87,7 @@ const CreateProject = ({ user, projects, setProjects }) => {
             <div className="header pt-3 grey lighten-2">
               <MDBRow className="d-flex justify-content-start">
                 <h3 className="deep-grey-text mt-3 mb-4 pb-1 mx-5">
-                  Create Project
+                  {formValues.title}
                 </h3>
               </MDBRow>
             </div>
@@ -118,4 +157,4 @@ const CreateProject = ({ user, projects, setProjects }) => {
   )
 }
 
-export default CreateProject
+export default ProjectForm

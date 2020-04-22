@@ -72,7 +72,7 @@ const Project = ({ user, projects, setProjects }) => {
   }
 
   // Only displayed if logged in user is admin of project.
-  const renderDeleteButton = () => {
+  const renderAdminButtons = () => {
     // find a way to not need this(user doesnt show up on first render so it throws an error)
     if (!user || !project.admin) {
       return
@@ -80,9 +80,19 @@ const Project = ({ user, projects, setProjects }) => {
 
     if (user.username === project.admin.username) {
       return (
-        <MDBBtn color="danger" size="sm" onClick={handleDelete}>
-          Delete Project
-        </MDBBtn>
+        <>
+          <MDBBtn
+            color="success"
+            size="sm"
+            tag={Link}
+            to={`/project/${id}/edit`}
+          >
+            Edit Project
+          </MDBBtn>
+          <MDBBtn color="danger" size="sm" onClick={handleDelete}>
+            Delete Project
+          </MDBBtn>
+        </>
       )
     }
   }
@@ -90,6 +100,7 @@ const Project = ({ user, projects, setProjects }) => {
   return (
     <>
       <div>Title: {project.name}</div>
+      <div>Description: {project.description}</div>
       <div>Admin: {getAdmin()}</div>
       <h3>Features</h3>
       <Link to={`/project/${id}/feature/create`}> Create new Feature </Link>
@@ -98,7 +109,7 @@ const Project = ({ user, projects, setProjects }) => {
       <Link to={`/project/${id}/bug/create`}> Create new Bug </Link>
       <div>{renderBugs()}</div>
       <BackBTN />
-      {renderDeleteButton()}
+      {renderAdminButtons()}
     </>
   )
 }

@@ -7,7 +7,7 @@ import Account from './Account'
 import Home from './Home'
 import Type from './Type'
 import CreateType from './CreateType'
-import CreateProject from './CreateProject'
+import ProjectForm from './ProjectForm'
 import { Route, Switch } from 'react-router-dom'
 
 const ProjectMenu = ({ projects, setProjects, user, setUser, setMessage }) => {
@@ -29,7 +29,7 @@ const ProjectMenu = ({ projects, setProjects, user, setUser, setMessage }) => {
         <Projects projects={projects} />
       </Route>
       <Route exact path="/projects/create">
-        <CreateProject
+        <ProjectForm
           user={user}
           projects={projects}
           setProjects={setProjects}
@@ -37,6 +37,13 @@ const ProjectMenu = ({ projects, setProjects, user, setUser, setMessage }) => {
       </Route>
       <Route exact path="/project/:id">
         <Project user={user} projects={projects} setProjects={setProjects} />
+      </Route>
+      <Route exact path="/project/:id/edit">
+        <ProjectForm
+          user={user}
+          projects={projects}
+          setProjects={setProjects}
+        />
       </Route>
       <Route exact path="/project/:projectId/:type/create">
         <CreateType setMessage={setMessage} />
