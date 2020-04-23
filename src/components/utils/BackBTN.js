@@ -6,7 +6,7 @@ const BackBTN = () => {
   const history = useHistory()
 
   return (
-    <MDBBtn color="primary" size="sm" onClick={() => history.goBack()}>
+    <MDBBtn color="primary" size="sm" onClick={() => history.push('/projects')}>
       back
     </MDBBtn>
   )
