@@ -152,6 +152,7 @@ const updateComment = async (projId, type, typeId, comment) => {
 const deleteComment = async (projId, type, typeId, commentId) => {
   const deletedComment = await axios.post(
     `${baseUrl}/project/${projId}/${type}s/${typeId}/comment/${commentId}/delete`,
+    [],
     header
   )
 

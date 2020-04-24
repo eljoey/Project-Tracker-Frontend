@@ -10,7 +10,7 @@ import Comments from './Comments'
 // TODO: Project owner delete comments
 // TODO: Make Pretty
 
-const Type = () => {
+const Type = ({ user }) => {
   const { projectId, type, typeId } = useParams()
   const [projectType, setProjectType] = useState([])
   const [comments, setComments] = useState([])
@@ -37,7 +37,7 @@ const Type = () => {
         <h4>{projectType.name}</h4>
         <p>{projectType.description}</p>
       </div>
-      <Comments comments={comments} setComments={setComments} />
+      <Comments comments={comments} setComments={setComments} user={user} />
       <BackBTN />
     </>
   )

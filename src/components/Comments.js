@@ -9,12 +9,14 @@ import {
   MDBBtn,
   MDBCard,
   MDBCardBody,
+  MDBCloseIcon,
 } from 'mdbreact'
 import Moment from 'react-moment'
 
 // TODO: Page comments (10per page)
+// TODO: Add Admin being able to delete comments
 
-const Comments = ({ comments, setComments }) => {
+const Comments = ({ comments, setComments, user }) => {
   const { projectId, type, typeId } = useParams()
   const [formValues, setFormValues] = useState({
     comment: '',
@@ -136,6 +138,31 @@ const Comments = ({ comments, setComments }) => {
     }
   }
 
+  const renderDeleteCommentIcon = (comment) => {
+    if (comment.user.username === user.username) {
+      return (
+        <MDBCloseIcon
+          className="m-2"
+          onClick={() => handleCommentDelete(comment._id)}
+        />
+      )
+    }
+  }
+
+  const handleCommentDelete = async (id) => {
+    const deletedComment = await apiService.deleteComment(
+      projectId,
+      type,
+      typeId,
+      id
+    )
+    console.log(deletedComment)
+
+    const updatedComments = comments.filter((comment) => comment._id !== id)
+
+    setComments(updatedComments)
+  }
+
   return (
     <>
       <div>
@@ -182,6 +209,7 @@ const Comments = ({ comments, setComments }) => {
             key={comment._id}
             className="border border-dark #eeeeee grey lighten-2 rounded-mb-5 m-3"
           >
+            {renderDeleteCommentIcon(comment)}
             <p className="m-1"> {comment.content} </p>
             <p className="ml-3 font-weight-bold">
               {' '}
