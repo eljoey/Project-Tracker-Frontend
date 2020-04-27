@@ -14,9 +14,8 @@ import {
 import Moment from 'react-moment'
 
 // TODO: Page comments (10per page)
-// TODO: Add Admin being able to delete comments
 
-const Comments = ({ comments, setComments, user }) => {
+const Comments = ({ comments, setComments, user, currentProject }) => {
   const { projectId, type, typeId } = useParams()
   const [formValues, setFormValues] = useState({
     comment: '',
@@ -139,7 +138,11 @@ const Comments = ({ comments, setComments, user }) => {
   }
 
   const renderDeleteCommentIcon = (comment) => {
-    if (comment.user.username === user.username) {
+    // Shows delete button for Admin of project and the comments user
+    if (
+      comment.user.username === user.username ||
+      currentProject.admin === user._id
+    ) {
       return (
         <MDBCloseIcon
           className="m-2"

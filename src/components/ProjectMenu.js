@@ -49,7 +49,7 @@ const ProjectMenu = ({ projects, setProjects, user, setUser, setMessage }) => {
         <CreateType setMessage={setMessage} />
       </Route>
       <Route path="/project/:projectId/:type/:typeId">
-        <Type user={user} />
+        <Type user={user} projects={projects} />
       </Route>
     </Switch>
   )

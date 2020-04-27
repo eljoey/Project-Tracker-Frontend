@@ -10,9 +10,10 @@ import Comments from './Comments'
 // TODO: Project owner delete comments
 // TODO: Make Pretty
 
-const Type = ({ user }) => {
+const Type = ({ user, projects }) => {
   const { projectId, type, typeId } = useParams()
   const [projectType, setProjectType] = useState([])
+  const [currentProject, setCurrentProject] = useState({})
   const [comments, setComments] = useState([])
 
   useEffect(() => {
@@ -26,6 +27,7 @@ const Type = ({ user }) => {
 
       setProjectType(fetchedType)
       setComments(fetchedComments)
+      setCurrentProject(projects.find((proj) => proj._id === projectId))
     }
 
     fetchType().catch((err) => console.log(err))
@@ -37,7 +39,12 @@ const Type = ({ user }) => {
         <h4>{projectType.name}</h4>
         <p>{projectType.description}</p>
       </div>
-      <Comments comments={comments} setComments={setComments} user={user} />
+      <Comments
+        comments={comments}
+        setComments={setComments}
+        user={user}
+        currentProject={currentProject}
+      />
       <BackBTN />
     </>
   )
