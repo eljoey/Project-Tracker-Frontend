@@ -7,7 +7,6 @@ import Comments from './Comments'
 // TODO: form validation on comments
 // TODO: error handling on comment submit
 // TODO: Edit users own comments
-// TODO: Project owner delete comments
 // TODO: Make Pretty
 
 const Type = ({ user, projects }) => {

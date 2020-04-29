@@ -23,6 +23,7 @@ const Comments = ({ comments, setComments, user, currentProject }) => {
   const [toggledBTNS, setToggledBTNS] = useState({
     old: false,
     new: true,
+    addComment: true,
   })
 
   const handleChange = (e) => {
@@ -145,6 +146,7 @@ const Comments = ({ comments, setComments, user, currentProject }) => {
     ) {
       return (
         <MDBCloseIcon
+          ariaLabel="Delete"
           className="m-2"
           onClick={() => handleCommentDelete(comment._id)}
         />
@@ -153,59 +155,86 @@ const Comments = ({ comments, setComments, user, currentProject }) => {
   }
 
   const handleCommentDelete = async (id) => {
-    const deletedComment = await apiService.deleteComment(
-      projectId,
-      type,
-      typeId,
-      id
-    )
-    console.log(deletedComment)
+    await apiService.deleteComment(projectId, type, typeId, id)
 
     const updatedComments = comments.filter((comment) => comment._id !== id)
 
     setComments(updatedComments)
   }
 
+  const renderCommentForm = () => {
+    if (toggledBTNS.addComment) {
+      return (
+        <>
+          <MDBContainer className="d-flex flex-column justify-content-center align-content-center">
+            <MDBRow>
+              <MDBCol md="8">
+                <MDBCard>
+                  <MDBCardBody className="mx-1 mt-1">
+                    <MDBCloseIcon
+                      ariaLabel="Dismiss"
+                      className="pb-2"
+                      onClick={() =>
+                        setToggledBTNS({
+                          ...toggledBTNS,
+                          addComment: false,
+                        })
+                      }
+                    />
+                    <form onSubmit={handleSubmit}>
+                      <MDBInput
+                        value={formValues.comment}
+                        onChange={handleChange}
+                        id="comment"
+                        label="Comment"
+                        group
+                        type="textarea"
+                        validate
+                        outline
+                        required
+                      />
+
+                      <div className="text-center mb-2 mt-3 d-flex .flex-row">
+                        <MDBBtn
+                          color="danger"
+                          type="submit"
+                          className="btn-block z-depth-2"
+                        >
+                          Submit
+                        </MDBBtn>
+                      </div>
+                    </form>
+                  </MDBCardBody>
+                </MDBCard>
+              </MDBCol>
+            </MDBRow>
+          </MDBContainer>
+        </>
+      )
+    }
+  }
+
+  const renderAddCommentBTN = () => {
+    if (!toggledBTNS.addComment) {
+      return (
+        <MDBBtn
+          color="light-blue"
+          className="btn  btn-sm"
+          onClick={() => setToggledBTNS({ ...toggledBTNS, addComment: true })}
+        >
+          Add Comment
+        </MDBBtn>
+      )
+    }
+  }
+
   return (
     <>
       <div>
-        <MDBContainer className="d-flex flex-column justify-content-center align-content-center">
-          <MDBRow>
-            <MDBCol md="8">
-              <MDBCard>
-                <MDBCardBody className="mx-1 mt-1">
-                  <form onSubmit={handleSubmit}>
-                    <MDBInput
-                      value={formValues.comment}
-                      onChange={handleChange}
-                      id="comment"
-                      label="Comment"
-                      group
-                      type="textarea"
-                      validate
-                      outline
-                      required
-                    />
-
-                    <div className="text-center mb-2 mt-3">
-                      <MDBBtn
-                        color="danger"
-                        type="submit"
-                        className="btn-block z-depth-2"
-                      >
-                        Submit
-                      </MDBBtn>
-                    </div>
-                  </form>
-                </MDBCardBody>
-              </MDBCard>
-            </MDBCol>
-          </MDBRow>
-        </MDBContainer>
+        Comments <span> - Sort By {renderSortBTNS()}</span>{' '}
       </div>
-      <div>
-        <h6>Comments</h6> <span>Sort By {renderSortBTNS()}</span>
-      </div>
+      <div>{renderAddCommentBTN()}</div>
+      <div>{renderCommentForm()}</div>
       <div>
         {comments.map((comment) => (
           <div

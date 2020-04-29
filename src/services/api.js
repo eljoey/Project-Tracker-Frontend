@@ -7,13 +7,10 @@ let header = null
 
 const setToken = (newToken) => {
   token = `bearer ${newToken}`
-  setAuthHeader(token)
-}
 
-const setAuthHeader = (info) => {
   header = {
     headers: {
-      Authorization: info,
+      Authorization: token,
     },
   }
 }
