@@ -107,8 +107,10 @@ const updateType = async (projId, type, typeId, feature) => {
 }
 
 const deleteType = async (projId, type, typeId) => {
+  console.log(`${baseUrl}/project/${projId}/${type}/${typeId}/delete`)
   const deletedFeature = await axios.post(
     `${baseUrl}/project/${projId}/${type}/${typeId}/delete`,
+    [],
     header
   )
 

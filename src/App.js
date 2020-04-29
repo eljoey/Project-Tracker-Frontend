@@ -6,6 +6,7 @@ import ProjectMenu from './components/ProjectMenu'
 import Notification from './components/Notification'
 
 // TODO: RESTRICT LOGIN AND SIGNUP PAGES WHEN LOGGED IN
+// TODO: CONTEXT API OR SETUP REDUX
 
 function App() {
   const [user, setUser] = useState(null)

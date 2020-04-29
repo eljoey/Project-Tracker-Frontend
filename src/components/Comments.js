@@ -23,7 +23,7 @@ const Comments = ({ comments, setComments, user, currentProject }) => {
   const [toggledBTNS, setToggledBTNS] = useState({
     old: false,
     new: true,
-    addComment: true,
+    addComment: false,
   })
 
   const handleChange = (e) => {
