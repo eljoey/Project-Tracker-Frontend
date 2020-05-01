@@ -10,7 +10,7 @@ import { MDBBtn } from 'mdbreact'
 // TODO: Edit users own comments
 // TODO: Make Pretty
 
-const Type = ({ user, projects }) => {
+const Type = ({ user, projects, setMessage }) => {
   const history = useHistory()
   const { projectId, type, typeId } = useParams()
   const [projectType, setProjectType] = useState([])
@@ -35,15 +35,20 @@ const Type = ({ user, projects }) => {
   }, [])
 
   const handleTypeDelete = async () => {
-    console.log('STARTING IN DELETE')
-    console.log('Type', type)
     try {
       await apiService.deleteType(projectId, type, typeId)
 
-      console.log('DID I GET HERE?')
+      setMessage(`Deleted ${type}: ${projectType.name}`)
+      setTimeout(() => {
+        setMessage(null)
+      }, 5000)
+
       history.push('/projects')
     } catch (err) {
-      console.log(err)
+      setMessage(err.response.data.error)
+      setTimeout(() => {
+        setMessage(null)
+      }, 10000)
     }
   }
 
