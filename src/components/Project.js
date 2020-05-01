@@ -4,7 +4,9 @@ import { useParams, Link, useHistory } from 'react-router-dom'
 import BackBTN from './utils/BackBTN'
 import { MDBBtn } from 'mdbreact'
 
-const Project = ({ user, projects, setProjects }) => {
+// TODO: HANDLE WHEN SOMEONE TRIES TO GO TO PROJECT THAT THEY ARE NOT A MEMBER OF
+
+const Project = ({ user, projects, setProjects, setMessage }) => {
   const history = useHistory()
   const [project, setProject] = useState({})
   const { id } = useParams()
@@ -51,9 +53,7 @@ const Project = ({ user, projects, setProjects }) => {
     }
 
     try {
-      const deletedProject = await apiService.deleteProject(project._id)
-
-      // TODO: SEND MSG THAT PROJECT DELETED
+      await apiService.deleteProject(project._id)
 
       // Remove deleted project from project state and update with it removed
       const updatedProjects = projects.filter(
@@ -62,10 +62,17 @@ const Project = ({ user, projects, setProjects }) => {
 
       setProjects([...updatedProjects])
 
+      setMessage(`Deleted project '${project.name}'`)
+      setTimeout(() => {
+        setMessage(null)
+      }, 10000)
+
       history.push('/projects')
     } catch (err) {
-      // TODO: DISPLAY ERROR ON SITE
-      console.log(err)
+      setMessage(err.response.data.error)
+      setTimeout(() => {
+        setMessage(null)
+      }, 10000)
     }
 
     history.push('/projects')
