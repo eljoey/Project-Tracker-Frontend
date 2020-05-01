@@ -13,7 +13,7 @@ import apiService from '../services/api'
 
 // TODO: Figure out how I'm going to handle adding members
 
-const ProjectForm = ({ user, projects, setProjects }) => {
+const ProjectForm = ({ user, projects, setProjects, setMessage }) => {
   const history = useHistory()
   const { id } = useParams()
   const [isEditing, setIsEditing] = useState(false)
@@ -46,6 +46,7 @@ const ProjectForm = ({ user, projects, setProjects }) => {
     e.preventDefault()
 
     let currentProject
+
     if (isEditing) {
       const project = await apiService.getProjectId(id)
 
@@ -71,6 +72,15 @@ const ProjectForm = ({ user, projects, setProjects }) => {
       currentProject = await apiService.createProject(newProject)
       setProjects([...projects, currentProject])
     }
+
+    // Message handling
+    const formType = isEditing ? 'Updated' : 'Created'
+    console.log(formType)
+
+    setMessage(`${formType} project: ${currentProject.name}`)
+    setTimeout(() => {
+      setMessage(null)
+    }, 5000)
 
     history.push(`/project/${currentProject._id}`)
   }

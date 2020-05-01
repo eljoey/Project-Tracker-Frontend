@@ -33,6 +33,7 @@ const ProjectMenu = ({ projects, setProjects, user, setUser, setMessage }) => {
           user={user}
           projects={projects}
           setProjects={setProjects}
+          setMessage={setMessage}
         />
       </Route>
       <Route exact path="/project/:id">
@@ -48,6 +49,7 @@ const ProjectMenu = ({ projects, setProjects, user, setUser, setMessage }) => {
           user={user}
           projects={projects}
           setProjects={setProjects}
+          setMessage={setMessage}
         />
       </Route>
       <Route exact path="/project/:projectId/:type/create">
