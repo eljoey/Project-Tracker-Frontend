@@ -32,16 +32,23 @@ const CreateType = ({ setMessage }) => {
     }
 
     try {
-      // TODO: Validation
+      // TODO: Validation!!!!
 
       await apiService.createType(projectId, type, newType)
+
+      // Capitalize first letter cuz it be like that sometimes ya kno?
+      const capitolizedType = type.charAt(0).toUpperCase() + type.slice(1)
+      setMessage(`${capitolizedType} Created: ${newType.name}`)
+      setTimeout(() => {
+        setMessage(null)
+      }, 5000)
 
       history.push(`/project/${projectId}`)
     } catch (err) {
       setMessage(err.response.data.error)
       setTimeout(() => {
         setMessage(null)
-      }, 3000)
+      }, 10000)
     }
   }
 
