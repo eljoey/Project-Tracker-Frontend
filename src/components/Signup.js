@@ -6,7 +6,7 @@ import {
   MDBInput,
   MDBBtn,
   MDBCard,
-  MDBCardBody
+  MDBCardBody,
 } from 'mdbreact'
 import { useHistory, Link } from 'react-router-dom'
 import userService from '../services/user'
@@ -22,21 +22,21 @@ const Signup = ({ setMessage, setUser }) => {
     firstName: '',
     lastName: '',
     password: '',
-    passwordConfirm: ''
+    passwordConfirm: '',
   })
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     setFormValues({ ...formValues, [e.target.id]: e.target.value })
   }
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
 
     if (formValues.password !== formValues.passwordConfirm) {
       setMessage('Passwords must match')
       setTimeout(() => {
         setMessage(null)
-      }, 3000)
+      }, 10000)
       return
     }
 
@@ -44,7 +44,7 @@ const Signup = ({ setMessage, setUser }) => {
       username: formValues.username,
       firstName: formValues.firstName,
       lastName: formValues.lastName,
-      password: formValues.password
+      password: formValues.password,
     }
 
     try {
@@ -53,7 +53,7 @@ const Signup = ({ setMessage, setUser }) => {
       setUser({
         username: newUser.username,
         firstName: newUser.firstName,
-        lastName: newUser.lastName
+        lastName: newUser.lastName,
       })
 
       window.localStorage.setItem('loggedUser', JSON.stringify(user))
@@ -61,10 +61,19 @@ const Signup = ({ setMessage, setUser }) => {
       apiService.setToken(user.token)
       history.push('/')
     } catch (err) {
-      setMessage(err.response.data.error)
+      let errorMessage = ''
+
+      // handles error message when username has been taken
+      err.response.data.error.includes(
+        'Error, expected `username` to be unique'
+      )
+        ? (errorMessage = 'Username already in use, Please try another')
+        : (errorMessage = err.response.data.error)
+
+      setMessage(errorMessage)
       setTimeout(() => {
         setMessage(null)
-      }, 3000)
+      }, 10000)
     }
   }
 
