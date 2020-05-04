@@ -3,23 +3,30 @@ import apiService from '../services/api'
 import { useParams, Link, useHistory } from 'react-router-dom'
 import BackBTN from './utils/BackBTN'
 import { MDBBtn } from 'mdbreact'
-
-// TODO: HANDLE WHEN SOMEONE TRIES TO GO TO PROJECT THAT THEY ARE NOT A MEMBER OF
+import AccessDenied from './AccessDenied'
 
 const Project = ({ user, projects, setProjects, setMessage }) => {
   const history = useHistory()
-  const [project, setProject] = useState({})
   const { id } = useParams()
+  const [project, setProject] = useState({})
+  const [isMember, setIsMember] = useState(false)
 
   useEffect(() => {
     const fetchProject = async () => {
       const fetchedProject = await apiService.getProjectId(id)
-
       setProject(fetchedProject)
-    }
 
+      // Check if member of project
+      if (
+        fetchedProject.members.filter(
+          (member) => member.username === user.username
+        ).length > 0
+      ) {
+        setIsMember(true)
+      }
+    }
     fetchProject()
-  }, [id])
+  }, [])
 
   const renderBugs = () => {
     if (project.bugs) {
@@ -45,6 +52,17 @@ const Project = ({ user, projects, setProjects, setMessage }) => {
     if (project.admin !== undefined) {
       return project.admin.username
     }
+  }
+
+  const renderMembers = () => {
+    let members = ''
+    if (project.members !== undefined) {
+      for (let i = 0; i < project.members.length; i++) {
+        members += project.members[i].username + ' '
+      }
+    }
+
+    return members
   }
 
   const handleDelete = async () => {
@@ -104,11 +122,15 @@ const Project = ({ user, projects, setProjects, setMessage }) => {
     }
   }
 
+  if (!isMember) {
+    return <AccessDenied />
+  }
   return (
     <>
       <div>Title: {project.name}</div>
       <div>Description: {project.description}</div>
       <div>Admin: {getAdmin()}</div>
+      <div>Members: {renderMembers()}</div>
       <h3>Features</h3>
       <Link to={`/project/${id}/feature/create`}> Create new Feature </Link>
       <div>{renderFeatures()}</div>
