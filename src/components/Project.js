@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react'
 import apiService from '../services/api'
 import { useParams, Link, useHistory } from 'react-router-dom'
 import BackBTN from './utils/BackBTN'
-import { MDBBtn } from 'mdbreact'
+import { MDBBtn, MDBLink } from 'mdbreact'
 import AccessDenied from './AccessDenied'
+
+// TODO: make members link to members page.
 
 const Project = ({ user, projects, setProjects, setMessage }) => {
   const history = useHistory()
@@ -58,8 +60,10 @@ const Project = ({ user, projects, setProjects, setMessage }) => {
     let members = ''
     if (project.members !== undefined) {
       for (let i = 0; i < project.members.length; i++) {
-        members += project.members[i].username + ' '
+        members += project.members[i].username + ', '
       }
+      // remove trailing comma
+      members = members.slice(0, members.length - 2)
     }
 
     return members
@@ -131,12 +135,33 @@ const Project = ({ user, projects, setProjects, setMessage }) => {
       <div>Description: {project.description}</div>
       <div>Admin: {getAdmin()}</div>
       <div>Members: {renderMembers()}</div>
-      <h3>Features</h3>
-      <Link to={`/project/${id}/feature/create`}> Create new Feature </Link>
-      <div>{renderFeatures()}</div>
-      <h3>Bugs</h3>
-      <Link to={`/project/${id}/bug/create`}> Create new Bug </Link>
-      <div>{renderBugs()}</div>
+      <div className="d-flex flex-row ">
+        <div className="border border-black">
+          <h3>Features</h3>
+          <MDBBtn
+            tag={Link}
+            className="btn-sm"
+            color="primary"
+            to={`/project/${id}/feature/create`}
+          >
+            Create new Feature
+          </MDBBtn>
+          <div className="d-flex flex-column">{renderFeatures()}</div>
+        </div>
+        <div className="border border-black min-vw-50">
+          <h3>Bugs</h3>
+          <MDBBtn
+            tag={Link}
+            className="btn-sm"
+            color="primary"
+            to={`/project/${id}/bug/create`}
+          >
+            Create new Bug
+          </MDBBtn>
+          <div className="d-flex flex-column">{renderBugs()}</div>
+        </div>
+      </div>
+
       <BackBTN />
       {renderAdminButtons()}
     </>
