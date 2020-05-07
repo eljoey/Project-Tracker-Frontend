@@ -15,7 +15,7 @@ import apiService from '../services/api'
 // TODO: FORM VALIDATION
 // TODO: USERNAME ALREADY TAKEN HANDLING (BACKEND NEEDS TO SEND MESSAGE)
 
-const Signup = ({ setMessage, setUser }) => {
+const Signup = ({ setNotification, setUser }) => {
   const history = useHistory()
   const [formValues, setFormValues] = useState({
     username: '',
@@ -33,9 +33,12 @@ const Signup = ({ setMessage, setUser }) => {
     e.preventDefault()
 
     if (formValues.password !== formValues.passwordConfirm) {
-      setMessage('Passwords must match')
+      setNotification({
+        message: 'Passwords must match',
+        type: 'danger',
+      })
       setTimeout(() => {
-        setMessage(null)
+        setNotification(null)
       }, 10000)
       return
     }
@@ -70,9 +73,12 @@ const Signup = ({ setMessage, setUser }) => {
         ? (errorMessage = 'Username already in use, Please try another')
         : (errorMessage = err.response.data.error)
 
-      setMessage(errorMessage)
+      setNotification({
+        message: errorMessage,
+        type: 'danger',
+      })
       setTimeout(() => {
-        setMessage(null)
+        setNotification(null)
       }, 10000)
     }
   }

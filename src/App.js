@@ -15,7 +15,7 @@ function App() {
   const [user, setUser] = useState(null)
   const [projects, setProjects] = useState([])
   const [loading, setLoading] = useState(false)
-  const [message, setMessage] = useState(null)
+  const [notification, setNotification] = useState(null)
 
   useEffect(() => {
     const getProjects = async () => {
@@ -59,13 +59,13 @@ function App() {
     return (
       <>
         <Header user={user} setUser={setUser} setProjects={setProjects} />
-        <Notification message={message} />
+        <Notification notification={notification} />
         <ProjectMenu
           user={user}
           projects={projects}
           setProjects={setProjects}
           setUser={setUser}
-          setMessage={setMessage}
+          setNotification={setNotification}
         />
       </>
     )

@@ -11,7 +11,7 @@ import {
 } from 'mdbreact'
 import apiService from '../services/api'
 
-const CreateType = ({ setMessage }) => {
+const CreateType = ({ setNotification }) => {
   const history = useHistory()
   const { projectId, type } = useParams()
   const [formValues, setFormValues] = useState({
@@ -38,16 +38,23 @@ const CreateType = ({ setMessage }) => {
 
       // Capitalize first letter cuz it be like that sometimes ya kno?
       const capitolizedType = type.charAt(0).toUpperCase() + type.slice(1)
-      setMessage(`${capitolizedType} Created: ${newType.name}`)
+      setNotification({
+        message: `${capitolizedType} Created: ${newType.name}`,
+        type: 'success',
+      })
       setTimeout(() => {
-        setMessage(null)
+        setNotification(null)
       }, 5000)
 
       history.push(`/project/${projectId}`)
     } catch (err) {
-      setMessage(err.response.data.error)
+      setNotification({
+        message: err.response.data.error,
+        type: 'warning',
+      })
+
       setTimeout(() => {
-        setMessage(null)
+        setNotification(null)
       }, 10000)
     }
   }

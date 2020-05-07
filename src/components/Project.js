@@ -7,7 +7,7 @@ import AccessDenied from './AccessDenied'
 
 // TODO: make members link to members page.
 
-const Project = ({ user, projects, setProjects, setMessage }) => {
+const Project = ({ user, projects, setProjects, setNotification }) => {
   const history = useHistory()
   const { id } = useParams()
   const [project, setProject] = useState({})
@@ -84,16 +84,22 @@ const Project = ({ user, projects, setProjects, setMessage }) => {
 
       setProjects([...updatedProjects])
 
-      setMessage(`Deleted project '${project.name}'`)
+      setNotification({
+        message: `Deleted project '${project.name}'`,
+        type: 'danger',
+      })
       setTimeout(() => {
-        setMessage(null)
+        setNotification(null)
       }, 10000)
 
       history.push('/projects')
     } catch (err) {
-      setMessage(err.response.data.error)
+      setNotification({
+        message: err.response.data.error,
+        type: 'danger',
+      })
       setTimeout(() => {
-        setMessage(null)
+        setNotification(null)
       }, 10000)
     }
 

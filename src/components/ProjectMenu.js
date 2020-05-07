@@ -10,20 +10,26 @@ import CreateType from './CreateType'
 import ProjectForm from './ProjectForm'
 import { Route, Switch } from 'react-router-dom'
 
-const ProjectMenu = ({ projects, setProjects, user, setUser, setMessage }) => {
+const ProjectMenu = ({
+  projects,
+  setProjects,
+  user,
+  setUser,
+  setNotification,
+}) => {
   return (
     <Switch>
       <Route exact path="/">
         <Home />
       </Route>
       <Route path="/account">
-        <Account setMessage={setMessage} />
+        <Account setNotification={setNotification} />
       </Route>
       <Route path="/login">
-        <Login setUser={setUser} setMessage={setMessage} />
+        <Login setUser={setUser} setNotification={setNotification} />
       </Route>
       <Route path="/signup">
-        <Signup setUser={setUser} setMessage={setMessage} />
+        <Signup setUser={setUser} setNotification={setNotification} />
       </Route>
       <Route exact path="/projects">
         <Projects projects={projects} />
@@ -33,7 +39,7 @@ const ProjectMenu = ({ projects, setProjects, user, setUser, setMessage }) => {
           user={user}
           projects={projects}
           setProjects={setProjects}
-          setMessage={setMessage}
+          setNotification={setNotification}
         />
       </Route>
       <Route exact path="/project/:id">
@@ -41,7 +47,7 @@ const ProjectMenu = ({ projects, setProjects, user, setUser, setMessage }) => {
           user={user}
           projects={projects}
           setProjects={setProjects}
-          setMessage={setMessage}
+          setNotification={setNotification}
         />
       </Route>
       <Route exact path="/project/:id/edit">
@@ -49,14 +55,18 @@ const ProjectMenu = ({ projects, setProjects, user, setUser, setMessage }) => {
           user={user}
           projects={projects}
           setProjects={setProjects}
-          setMessage={setMessage}
+          setNotification={setNotification}
         />
       </Route>
       <Route exact path="/project/:projectId/:type/create">
-        <CreateType setMessage={setMessage} />
+        <CreateType setNotification={setNotification} />
       </Route>
       <Route path="/project/:projectId/:type/:typeId">
-        <Type user={user} projects={projects} setMessage={setMessage} />
+        <Type
+          user={user}
+          projects={projects}
+          setNotification={setNotification}
+        />
       </Route>
     </Switch>
   )

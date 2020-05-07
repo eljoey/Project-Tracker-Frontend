@@ -8,14 +8,14 @@ import {
   MDBInput,
   MDBBtn,
   MDBCard,
-  MDBCardBody
+  MDBCardBody,
 } from 'mdbreact'
 import { useHistory, Link } from 'react-router-dom'
 
-const Login = ({ setUser, setMessage }) => {
+const Login = ({ setUser, setNotification }) => {
   let history = useHistory()
 
-  const handleLogin = async e => {
+  const handleLogin = async (e) => {
     e.preventDefault()
     const username = e.target.username.value
     const password = e.target.password.value
@@ -25,7 +25,7 @@ const Login = ({ setUser, setMessage }) => {
       setUser({
         username: user.username,
         firstName: user.firstName,
-        lastName: user.lastName
+        lastName: user.lastName,
       })
 
       window.localStorage.setItem('loggedUser', JSON.stringify(user))
@@ -33,9 +33,12 @@ const Login = ({ setUser, setMessage }) => {
       apiService.setToken(user.token)
       history.push('/')
     } catch (err) {
-      setMessage(err.response.data.error)
+      setNotification({
+        message: err.response.data.error,
+        type: 'danger',
+      })
       setTimeout(() => {
-        setMessage(null)
+        setNotification(null)
       }, 3000)
     }
   }

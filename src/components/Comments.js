@@ -20,7 +20,7 @@ const Comments = ({
   setComments,
   user,
   currentProject,
-  setMessage,
+  setNotification,
 }) => {
   const { projectId, type, typeId } = useParams()
   const [formValues, setFormValues] = useState({
@@ -167,9 +167,9 @@ const Comments = ({
 
     setComments(updatedComments)
 
-    setMessage('Comment Deleted.')
+    setNotification({ message: 'Comment Deleted.', type: 'danger' })
     setTimeout(() => {
-      setMessage(null)
+      setNotification(null)
     }, 3000)
   }
 

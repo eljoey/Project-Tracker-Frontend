@@ -1,12 +1,13 @@
 import React from 'react'
+import { MDBContainer, MDBAlert } from 'mdbreact'
 
-const Notification = ({ message }) => {
-  if (message === null) return null
+const Notification = ({ notification }) => {
+  if (notification === null) return null
 
   return (
-    <div>
-      <h1>THIS IS A NOTIFICATION: {message} </h1>
-    </div>
+    <MDBContainer>
+      <MDBAlert color={notification.type}> {notification.message} </MDBAlert>
+    </MDBContainer>
   )
 }
 
