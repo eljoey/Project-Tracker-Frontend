@@ -15,7 +15,13 @@ import Moment from 'react-moment'
 
 // TODO: Page comments (10per page)
 
-const Comments = ({ comments, setComments, user, currentProject }) => {
+const Comments = ({
+  comments,
+  setComments,
+  user,
+  currentProject,
+  setMessage,
+}) => {
   const { projectId, type, typeId } = useParams()
   const [formValues, setFormValues] = useState({
     comment: '',
@@ -160,6 +166,11 @@ const Comments = ({ comments, setComments, user, currentProject }) => {
     const updatedComments = comments.filter((comment) => comment._id !== id)
 
     setComments(updatedComments)
+
+    setMessage('Comment Deleted.')
+    setTimeout(() => {
+      setMessage(null)
+    }, 3000)
   }
 
   const renderCommentForm = () => {

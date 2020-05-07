@@ -83,6 +83,7 @@ const Type = ({ user, projects, setMessage }) => {
         setComments={setComments}
         user={user}
         currentProject={currentProject}
+        setMessage={setMessage}
       />
       <BackBTN />
     </>
