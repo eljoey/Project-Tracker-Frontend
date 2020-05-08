@@ -13,7 +13,6 @@ import userService from '../services/user'
 import apiService from '../services/api'
 
 // TODO: FORM VALIDATION
-// TODO: USERNAME ALREADY TAKEN HANDLING (BACKEND NEEDS TO SEND MESSAGE)
 
 const Signup = ({ setNotification, setUser }) => {
   const history = useHistory()

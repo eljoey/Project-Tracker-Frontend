@@ -5,9 +5,10 @@ const Notification = ({ notification }) => {
   if (notification === null) return null
 
   return (
-    <MDBContainer>
-      <MDBAlert color={notification.type}> {notification.message} </MDBAlert>
-    </MDBContainer>
+    <MDBAlert color={notification.type} dismiss>
+      {' '}
+      {notification.message}{' '}
+    </MDBAlert>
   )
 }
 
