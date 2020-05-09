@@ -31,6 +31,12 @@ const CreateType = ({ setNotification }) => {
       description: formValues.description,
     }
 
+    // Validation
+    if (formValues.name.trim().length === 0) {
+      setNotification({ message: 'Name cannot be empty', type: 'danger' })
+      return
+    }
+
     try {
       // TODO: Validation!!!!
 
@@ -84,6 +90,9 @@ const CreateType = ({ setNotification }) => {
                   outline
                   required
                 />
+                <div class="invalid-feedback">
+                  You must agree before submitting.
+                </div>
                 <MDBInput
                   value={formValues.description}
                   onChange={handleChange}

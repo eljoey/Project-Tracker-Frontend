@@ -12,7 +12,7 @@ const Projects = ({ projects }) => {
         <div className="text-center">
           {projects.map((proj) => (
             <div className=" border border-dark m-1 p-2" key={proj._id}>
-              <Link to={`/project/${proj._id}`}>{proj.name}</Link>
+              <MDBLink to={`/project/${proj._id}`}>{proj.name}</MDBLink>
               <p>{proj.description}</p>
               <div className="d-flex justify-content-center">
                 <MDBLink

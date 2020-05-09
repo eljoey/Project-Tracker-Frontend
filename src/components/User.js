@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import apiService from '../services/api'
 import Moment from 'react-moment'
 
-const Account = () => {
+const User = () => {
   const [userData, setUserData] = useState({})
 
   useEffect(() => {
@@ -29,4 +29,4 @@ const Account = () => {
   )
 }
 
-export default Account
+export default User

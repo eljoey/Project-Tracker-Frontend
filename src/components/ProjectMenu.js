@@ -3,7 +3,7 @@ import Projects from './Projects'
 import Project from './Project'
 import Login from './Login'
 import Signup from './Signup'
-import Account from './Account'
+import User from './User'
 import Home from './Home'
 import Type from './Type'
 import CreateType from './CreateType'
@@ -23,7 +23,7 @@ const ProjectMenu = ({
         <Home />
       </Route>
       <Route path="/account">
-        <Account setNotification={setNotification} />
+        <User setNotification={setNotification} />
       </Route>
       <Route path="/login">
         <Login setUser={setUser} setNotification={setNotification} />

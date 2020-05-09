@@ -33,9 +33,9 @@ const Project = ({ user, projects, setProjects, setNotification }) => {
   const renderBugs = () => {
     if (project.bugs) {
       return project.bugs.map((bug) => (
-        <Link to={`/project/${id}/bug/${bug._id}`} key={bug._id}>
+        <MDBLink to={`/project/${id}/bug/${bug._id}`} key={bug._id}>
           {bug.name}
-        </Link>
+        </MDBLink>
       ))
     }
   }
@@ -43,9 +43,9 @@ const Project = ({ user, projects, setProjects, setNotification }) => {
   const renderFeatures = () => {
     if (project.features) {
       return project.features.map((feature) => (
-        <Link to={`/project/${id}/feature/${feature._id}`} key={feature._id}>
+        <MDBLink to={`/project/${id}/feature/${feature._id}`} key={feature._id}>
           {feature.name}
-        </Link>
+        </MDBLink>
       ))
     }
   }
